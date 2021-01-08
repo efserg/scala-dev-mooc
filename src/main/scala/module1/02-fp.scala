@@ -44,7 +44,7 @@ object opt {
      *
      * реализовать метод orElse который будет возвращать другой Option, если данный пустой
      */
-    def orElse[B >: A](default: Option[B]): Option[B] = if (isEmpty) default else this
+    def orElse[B >: A](default: => Option[B]): Option[B] = if (isEmpty) default else this
 
     /**
      *
@@ -133,6 +133,7 @@ object list {
     def mkString(sep: String): String = {
       import List._
 
+      @tailrec
       def loop(l: List[A], acc: StringBuilder): StringBuilder = {
         l match {
           case Nil => acc
